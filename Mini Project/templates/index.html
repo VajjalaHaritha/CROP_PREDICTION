@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("{{ url_for('static', filename='Crop_bgimage.jpg') }}"); /* Background image */
+            background-size: cover; /* Cover entire viewport */
+            background-position: center; /* Center the background image */
+            margin: 0; /* Remove default margin */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay for better contrast */
+        }
+
+        .container {
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            z-index: 1; /* Ensure it is above the overlay */
+        }
+
+        .container h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-table {
+            width: 100%;
+        }
+
+        .form-table tr {
+            margin-bottom: 10px;
+        }
+
+        .form-table th,
+        .form-table td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .form-table label {
+            color: #333; /* Label color for better visibility */
+        }
+
+        .form-table input[type="number"] {
+            width: calc(100% - 20px); /* Adjusted width for input fields */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-table input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-table input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .image-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Send image to the back */
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover entire container */
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <h1>Crop Prediction</h1>
+        <form method="POST" class="form-table">
+            <table>
+                <tr>
+                    <th><label for="N">Nitrogen:</label></th>
+                    <td><input type="number" step="0.01" name="N" required></td>
+                </tr>
+                <tr>
+                    <th><label for="P">Phosphorus:</label></th>
+                    <td><input type="number" step="0.01" name="P" required></td>
+                </tr>
+                <tr>
+                    <th><label for="K">Potassium:</label></th>
+                    <td><input type="number" step="0.01" name="K" required></td>
+                </tr>
+                <tr>
+                    <th><label for="temperature">Temperature:</label></th>
+                    <td><input type="number" step="0.01" name="temperature" required></td>
+                </tr>
+                <tr>
+                    <th><label for="humidity">Humidity:</label></th>
+                    <td><input type="number" step="0.01" name="humidity" required></td>
+                </tr>
+                <tr>
+                    <th><label for="ph">pH:</label></th>
+                    <td><input type="number" step="0.01" name="ph" required></td>
+                </tr>
+                <tr>
+                    <th><label for="rainfall">Rainfall:</label></th>
+                    <td><input type="number" step="0.01" name="rainfall" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Predict"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="image-container">
+        <img src="{{ url_for('static', filename='Crop_bgimage.jpg') }}" alt="Crop Image">
+    </div>
+    </div>
+</body>
+</html>
